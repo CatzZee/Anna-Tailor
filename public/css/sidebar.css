@@ -1,0 +1,103 @@
+        :root {
+            --sidebar-width-expanded: 280px;
+            --sidebar-width-collapsed: 72px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        /* Tata letak utama menggunakan Flexbox */
+        .main-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /*
+         * Gaya Sidebar
+         */
+        .sidebar {
+            width: var(--sidebar-width-expanded);
+            background-color: #fff;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            transition: width 0.3s ease-in-out;
+            position: relative; /* Penting untuk positioning tombol toggle */
+        }
+
+        .sidebar .nav-link {
+            font-weight: 500;
+            color: #343a40;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar .nav-link .bi {
+            font-size: 1.25rem;
+            margin-right: 0.75rem;
+        }
+        
+        .sidebar .nav-link.active,
+        .sidebar .nav-link:hover {
+            color: #0d6efd;
+        }
+
+        .sidebar .dropdown-toggle::after {
+            margin-left: auto;
+        }
+
+        /*
+         * Gaya Sidebar Saat Diciutkan (Collapsed)
+         */
+        .sidebar.collapsed {
+            width: var(--sidebar-width-collapsed);
+        }
+
+        .sidebar.collapsed .nav-link span,
+        .sidebar.collapsed .sidebar-header span,
+        .sidebar.collapsed .dropdown-toggle span {
+            display: none;
+        }
+
+        .sidebar.collapsed .nav-link,
+        .sidebar.collapsed .sidebar-header,
+        .sidebar.collapsed .dropdown-toggle {
+            justify-content: center;
+        }
+        .sidebar.collapsed .nav-link .bi {
+            margin-right: 0;
+        }
+        .sidebar.collapsed .dropdown-toggle::after {
+            display: none;
+        }
+        
+        .sidebar.collapsed #sidebar-toggle .bi-chevron-left {
+            transform: rotate(180deg);
+        }
+
+        /* Konten Utama */
+        .main-content {
+            flex-grow: 1;
+            padding: 2rem;
+        }
+
+        /*
+         * Gaya Tombol Toggle Sidebar
+         */
+        #sidebar-toggle {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translate(50%, -50%);
+            z-index: 1050;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+        }
+        
+        #sidebar-toggle .bi-chevron-left {
+            transition: transform 0.3s ease-in-out;
+        }
