@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddToCartRequest;
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class KasirController extends Controller
 {
@@ -11,7 +13,8 @@ class KasirController extends Controller
      */
     public function index()
     {
-        return view('kasir');
+        $ProdukDetail = Product::all();
+        return view('kasir.kasir', compact('ProdukDetail'));
     }
 
     /**
@@ -25,9 +28,15 @@ class KasirController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AddToCartRequest $request)
     {
-        //
+        $Validated = $request->validated();
+        $cart = session()->get('cart',[]);
+        $cart[$Validated['id']]= [
+            'quantity' => $Validated->quantity,
+        ];
+        session()->put('cart', $cart);
+        return redirect()->route('kasir.page');
     }
 
     /**
@@ -35,7 +44,8 @@ class KasirController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $ProdukDetail = Product::FindOrFail($id);
+        return view('kasir.create', compact('ProdukDetail'));
     }
 
     /**

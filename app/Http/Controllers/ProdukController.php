@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProdukController extends Controller
@@ -11,7 +12,8 @@ class ProdukController extends Controller
      */
     public function index()
     {
-        return view('produk');
+        $ProdukDetail = Product::all();
+        return view('produk.produk', compact('ProdukDetail'));
     }
 
     /**
@@ -19,7 +21,7 @@ class ProdukController extends Controller
      */
     public function create()
     {
-        //
+        return view('produk.create');
     }
 
     /**
@@ -27,7 +29,15 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|min:3',
+            'price' => 'required|numeric',
+            'description' => 'required',
+            'stock' => 'required|numeric',
+            'category' => 'required',
+        ]);
+        Product::create($validated);
+        return redirect()->route('produk.page')->with(['success', 'Data Berhasil Disimpan!']);
     }
 
     /**
@@ -43,7 +53,8 @@ class ProdukController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $ProdukDetail = Product::FindOrFail($id);
+        return view('produk.create', compact('ProdukDetail'));
     }
 
     /**
@@ -51,7 +62,15 @@ class ProdukController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|min:3',
+            'price' => 'required|numeric',
+            'description' => 'required',
+            'stock' => 'required|numeric',
+            'category' => 'required',
+        ]);
+        Product::where('id',$id)->update($validated);
+        return redirect()->route('produk.page')->with(['success', 'Data Berhasil Disimpan!']);
     }
 
     /**
@@ -59,6 +78,8 @@ class ProdukController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $ProdukDelete = Product::FindOrFail($id);
+        $ProdukDelete->delete();
+        return redirect()->route('produk.page')->with(['success', 'Data Berhasil Dihapus']);
     }
 }
