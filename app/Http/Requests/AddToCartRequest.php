@@ -43,7 +43,7 @@ class AddToCartRequest extends FormRequest
     {
         return [
             function (\Illuminate\Contracts\Validation\Validator $validator) {
-                $product = Product::find($this->input('product_id'));
+                $product = Product::find($this->input('id'));
 
                 if ($product && $product->stock < $this->input('quantity')) {
                     $validator->errors()->add(

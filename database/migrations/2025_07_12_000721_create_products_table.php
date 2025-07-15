@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('price', 10, 2); // Sesuai Price_product
             $table->integer('stock')->default(0); // Sesuai Stock_product
             $table->string('category'); // Sesuai Category_product
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

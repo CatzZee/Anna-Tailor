@@ -2,19 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AddToCartRequest;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
-class KasirController extends Controller
+class CartController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $ProdukDetail = Product::all();
-        return view('kasir.kasir', compact('ProdukDetail'));
+        $ProdukDetail = session('cart', []);
+        foreach ($ProdukDetail as $key => $value) {
+            $Produk[$key] = [
+                'produk' => Product::find($key),
+                'quantity' => $value['quantity']
+            ];
+            
+        }
+        // print_r($Produk[6]['produk']['name']);
+        return view('cart.cart', compact('Produk'))->with('Success', 'Produk ditemukan di keranjang.');
     }
 
     /**
@@ -28,26 +35,15 @@ class KasirController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(AddToCartRequest $request)
+    public function store(Request $request)
     {
-        $Validated = $request->validated();
-        $cart = session()->get('cart',[]);
-        $cart[$Validated['id']]= [
-            'id' => $Validated['id'],
-            'quantity' => $Validated['quantity'],
-        ];
-        session()->put('cart', $cart);
-        return redirect()->route('kasir.page')->with('success','Produk Telah Berhasil Ditambahkan');
+        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        $ProdukDetail = Product::FindOrFail($id);
-        return view('kasir.create', compact('ProdukDetail'));
-    }
+    public function show(string $id) {}
 
     /**
      * Show the form for editing the specified resource.

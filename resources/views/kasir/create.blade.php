@@ -36,6 +36,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">{{ old('name',$ProdukDetail->price) }}</label>
+                                        <label class="font-weight-bold">{{ old('name',$ProdukDetail->stock) }}</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">

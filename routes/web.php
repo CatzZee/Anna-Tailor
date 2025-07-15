@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KasirController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\CartController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,4 +23,6 @@ Route::get('/Produk/{id}/Edit-Form', [ProdukController::class, 'edit'])->name('p
 Route::put('/Produk/{id}/Edit', [ProdukController::class, 'update'])->name('produk.update');
 // Logika Kasir
 Route::post('/Tambah-Keranjang',[KasirController::class, 'store'])->name('AddToCart');
-Route::post('/Form-Tambah-Keranjang/{id}',[KasirController::class, 'show'])->name('kasir.show');
+Route::get('/Form-Tambah-Keranjang/{id}',[KasirController::class, 'show'])->name('kasir.show');
+// Logika Cart/Orderan
+Route::get('/Keranjang', [CartController::class, 'index'])->name('cart.page');

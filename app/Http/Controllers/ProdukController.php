@@ -29,15 +29,15 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all()); 
         $validated = $request->validate([
             'name' => 'required|min:3',
             'price' => 'required|numeric',
-            'description' => 'required',
             'stock' => 'required|numeric',
             'category' => 'required',
         ]);
         Product::create($validated);
-        return redirect()->route('produk.page')->with(['success', 'Data Berhasil Disimpan!']);
+        return redirect()->route('produk.page')->with('success', 'Data Berhasil Disimpan!');
     }
 
     /**
@@ -69,8 +69,8 @@ class ProdukController extends Controller
             'stock' => 'required|numeric',
             'category' => 'required',
         ]);
-        Product::where('id',$id)->update($validated);
-        return redirect()->route('produk.page')->with(['success', 'Data Berhasil Disimpan!']);
+        Product::where('id', $id)->update($validated);
+        return redirect()->route('produk.page')->with('success', 'Data Berhasil Disimpan!');
     }
 
     /**
@@ -80,6 +80,13 @@ class ProdukController extends Controller
     {
         $ProdukDelete = Product::FindOrFail($id);
         $ProdukDelete->delete();
-        return redirect()->route('produk.page')->with(['success', 'Data Berhasil Dihapus']);
+        return redirect()->route('produk.page')->with('success', 'Data Berhasil Dihapus');
+    }
+    public function getEditData($id)
+    {
+        // Ganti 'Produk' dengan nama Model Anda yang sesuai
+        $product = \App\Models\Product::findOrFail($id);
+        print_r($product);
+        return response()->json($product);
     }
 }
