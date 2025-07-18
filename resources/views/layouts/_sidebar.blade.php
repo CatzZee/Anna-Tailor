@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Template Sidebar Bootstrap</title>
-
+    @yield('config.up')
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -78,6 +78,12 @@
                         <span>Customers</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('cart.page') }}" class="nav-link {{ Route::is('cart.page')? 'active link-dark' : '' }}">
+                        <i class="bi bi-cart"></i>
+                        <span>Cart</span>
+                    </a>
+                </li>
             </ul>
             <hr>
 
@@ -111,7 +117,7 @@
             @yield('content')
         </main>
     </div>
-
+    @yield('config.down')
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- JS Kustom untuk Toggle Sidebar -->
