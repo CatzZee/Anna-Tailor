@@ -3,18 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Product;
-use PhpParser\Node\Expr\Cast\Unset_;
 
-class CartController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $Produk = session('cart', []);
-        return view('cart.cart', compact('Produk'))->with('Success', 'Produk ditemukan di keranjang.');
+        //
     }
 
     /**
@@ -36,7 +33,10 @@ class CartController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id) {}
+    public function show(string $id)
+    {
+        //
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -59,17 +59,20 @@ class CartController extends Controller
      */
     public function destroy(string $id)
     {
-        // print_r($id);
-        $cartsession = session('cart', []);
-        // print_r($cartsession);
-        foreach ($cartsession as $key => $value) {
-            if ($value['id'] ==  $id) {
-                // print_r($key);
-                unset($cartsession[$key]);
-                session()->put('cart', $cartsession);
-                return redirect()->route('cart.page')->with('success', 'Produk dihapus dari keranjang.');
-            }
+        //
+    }
+    public function AddToOrder()
+    {
+        $cart = session('cart', []);
+        $totalharga = 0;
+        foreach ($cart as $key => $value) {
+            $totalharga = $totalharga + ($value['price'] * $value['quantity']);
         }
-        return redirect()->route('cart.page')->with('error', 'Produk Tidak Berhasil Dihapus');
+        print_r($totalharga);
+        // foreach ($cart as $key => $value) {
+        //     $order[$key] =
+        //         [];
+        //     # code...
+        // }
     }
 }

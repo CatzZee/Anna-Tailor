@@ -78,6 +78,12 @@
                         <span>Customers</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('cart.page') }}" class="nav-link {{ Route::is('cart.page')? 'active link-dark' : '' }}">
+                        <i class="bi bi-cart"></i>
+                        <span>Cart</span>
+                    </a>
+                </li>
             </ul>
             <hr>
 

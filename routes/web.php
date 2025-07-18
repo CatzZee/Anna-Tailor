@@ -5,11 +5,16 @@ use App\Http\Controllers\KasirController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('welcome');
 });
-
+//Login
+Route::get('/login', [AuthController::class, 'ShowLoginForm'])->name('FormLogin');
+Route::get('/register', [AuthController::class, 'ShowRegisterForm'])->name('FormRegister');
+Route::post('/register/akun', [AuthController::class, 'RegisterAccount'])->name('Register');
 //Sidebar Move
 Route::get('/Dashboard', [DashboardController::class, 'index'])->name('dashboard.page');
 Route::get('/Kasir', [KasirController::class, 'index'])->name('kasir.page');
@@ -24,5 +29,8 @@ Route::put('/Produk/{id}/Edit', [ProdukController::class, 'update'])->name('prod
 // Logika Kasir
 Route::post('/Tambah-Keranjang',[KasirController::class, 'store'])->name('AddToCart');
 Route::get('/Form-Tambah-Keranjang/{id}',[KasirController::class, 'show'])->name('kasir.show');
-// Logika Cart/Orderan
+// Logika Cart
 Route::get('/Keranjang', [CartController::class, 'index'])->name('cart.page');
+Route::delete('/keranjang/destroy/session/{id}', [CartController::class, 'destroy'])->name('cart.destroysession');
+// Logika Orderan
+Route::get('/Order', [OrderController::class, 'AddToOrder'])->name('AddToOrder');

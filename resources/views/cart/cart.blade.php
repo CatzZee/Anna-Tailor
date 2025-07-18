@@ -2,11 +2,11 @@
 
 @section('content')
     <div class="container">
-        @if ($errors->any())
+        @if (session('error'))
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                @foreach ($errors->all() as $item)
-                    <li>{{ $item }}</li>
-                @endforeach
+                {{-- @foreach ($errors->all() as $item) --}}
+                    <li>{{ session('error') }}</li>
+                {{-- @endforeach --}}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @elseif (session('success'))
@@ -20,7 +20,7 @@
     <div class="container py-5">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
 
-            @foreach ($Produk as $key1 => $key2)
+            @foreach ($Produk as $key => $value)
                 <div class="col">
                     <div class="card h-100 shadow-sm rounded-4 product-card">
 
@@ -34,21 +34,22 @@
 
                         <div class="card-body p-4 d-flex flex-column">
                             <h5 class="card-title fw-bold text-dark mb-3 text-truncate">
-                                <a href="#" class="text-decoration-none text-dark">{{ $key2['produk']['name'] }}</a>
+                                <a href="#" class="text-decoration-none text-dark">{{ $value['name'] }}</a>
                             </h5>
-                            <p class="text-muted small mb-2">quantity: {{  $key2['quantity'] }}</p>
+                            <p class="text-muted small mb-2">quantity: {{  $value['quantity'] }}</p>
 
                             <div class="mt-auto">
                                 <p class="fs-4 fw-bold text-primary mb-0">
-                                    Rp {{ number_format( $key2['produk']['price'], 0, ',', '.') }}
+                                    Rp {{ number_format( $value['price'], 0, ',', '.') }}
                                 </p>
                             </div>
                         </div>
 
                         <div class="card-footer p-3 pt-0 bg-transparent border-top-0 justify-content-center">
                             <div class="d-flex gap-2 justify-content-center">
-                                <form action="" method="GET">
+                                <form action="{{ route('cart.destroysession', ['id' =>$value['id']]) }}" method="POST">
                                     @csrf
+                                    @method('DELETE')
                                     <button type="submit" class="btn btn-outline-danger w-100 fw-semibold ">
                                         Hapus Dari Keranjang
                                     </button>

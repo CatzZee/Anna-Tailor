@@ -31,13 +31,20 @@ class KasirController extends Controller
     public function store(AddToCartRequest $request)
     {
         $Validated = $request->validated();
-        $cart = session()->get('cart',[]);
-        $cart[$Validated['id']]= [
-            'id' => $Validated['id'],
+        // print_r($Validated);
+        $cart = session()->get('cart', []);
+        $ProdukDatabase = Product::findOrfail($Validated['id']);
+        $cart[$Validated['id']] = [
+            'id' => $ProdukDatabase['id'],
+            'name' => $ProdukDatabase['name'],
+            'category' => $ProdukDatabase['category'],
+            'description' => $ProdukDatabase['description'],
+            'price' => $ProdukDatabase['price'],
+            'stock' => $ProdukDatabase['stock'],
             'quantity' => $Validated['quantity'],
         ];
         session()->put('cart', $cart);
-        return redirect()->route('kasir.page')->with('success','Produk Telah Berhasil Ditambahkan');
+        return redirect()->route('kasir.page')->with('success', 'Produk Telah Berhasil Ditambahkan');
     }
 
     /**
