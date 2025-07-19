@@ -20,6 +20,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/flashMessage.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/flashMessage.js') }}">
     <!-- Logika CSS -->
     @if (Route::is('dashboard.page'))
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">

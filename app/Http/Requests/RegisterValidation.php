@@ -54,7 +54,8 @@ class RegisterValidation extends FormRequest
             function (\Illuminate\Contracts\Validation\Validator $validator){
                 $role = $this->input('role');
 
-                if($role == 'kasir' || $role == 'pelanggan' || $role == 'admin' ){
+                $allowedRoles = ['admin', 'pelanggan', 'kasir']; 
+                if (!in_array($role, $allowedRoles)) {
                     $validator->errors()->add(
                         'role',
                         "peran tidak ditemukan"

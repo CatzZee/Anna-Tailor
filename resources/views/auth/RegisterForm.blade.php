@@ -16,9 +16,9 @@
 </head>
 
 <body>
-
     <div class="limiter">
         <div class="container-login100">
+            
             <div class="wrap-login100">
                 <form action="{{ route('Register') }}" method="POST" class="login100-form validate-form">
                     @csrf
@@ -28,19 +28,19 @@
                     </span>
 
                     <div class="wrap-input100 validate-input">
-                        <input class="input100" type="text" name="name" placeholder="Name" autocomplete="off">
+                        <input class="input100" type="text" name="name" placeholder="Name" value="{{ old('name') }}" autocomplete="off">
                         <span class="symbol-input100">
                             <i class="fa fa-user" aria-hidden="true"></i>
                         </span>
                     </div>
                     <div class="wrap-input100 validate-input">
-                        <input class="input100" type="email" name="email" placeholder="Email" autocomplete="off">
+                        <input class="input100" type="email" name="email" placeholder="Email" value="{{ old('email') }}" autocomplete="off">
                         <span class="symbol-input100">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
                         </span>
                     </div>
                     <div class="wrap-input100 validate-input">
-                        <input class="input100" type="text" name="role" placeholder="Role" autocomplete="off">
+                        <input class="input100" type="text" name="role" placeholder="Role ex. kasir" value="{{ old('role') }}" autocomplete="off">
                         <span class="symbol-input100">
                             <i class="fa fa-apple" aria-hidden="true"></i>
                         </span>
